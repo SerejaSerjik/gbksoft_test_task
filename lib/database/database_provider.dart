@@ -19,7 +19,6 @@ class DatabaseProvider {
       return _database;
     }
 
-    print("creating db...");
     _database = await createDatabase();
 
     return _database;
@@ -33,13 +32,10 @@ class DatabaseProvider {
   Future<Database> createDatabase() async {
     String dbPath = await getDatabasesPath();
 
-    print("inside createDatabase");
     return await openDatabase(
       join(dbPath, 'contacts.db'),
       version: 1,
       onCreate: (Database database, int version) async {
-        print("Creating contacts table");
-
         await database.execute("CREATE TABLE $TABLE_CONTACTS("
             "$COLUMN_ID TEXT PRIMARY KEY,"
             "$COLUMN_FIRST_NAME TEXT,"

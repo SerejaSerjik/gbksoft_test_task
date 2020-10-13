@@ -11,7 +11,6 @@ class ContactsRepository {
       : assert(contactsApiClient != null);
 
   Future<List<Contacts>> getContactsFromApi() async {
-    print("Getting contacts from API in Repo");
     final List<dynamic> fetchedJson =
         await contactsApiClient.getUsersContacts();
     final List<Contacts> fetchedContactsFromJson = [];

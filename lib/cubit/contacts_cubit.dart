@@ -17,14 +17,12 @@ class ContactsCubit extends Cubit<ContactsState> {
   Future<void> getContactsList() async {
     try {
       emit(ContactsLoading());
-      print("Loading contacts from API");
       List<Contacts> loadedContacts =
           await contactsRepository.getContactsFromApi();
       await contactsRepository.insertContactsToDB(loadedContacts);
       final dbContacts = await contactsRepository.getContactsFromDB();
       emit(ContactsLoaded(loadedContacts: dbContacts));
     } catch (e) {
-      print(e);
       emit(ContactsError());
       Timer(Duration(seconds: 2), () => emit(ContactsEmpty()));
     }
@@ -45,7 +43,6 @@ class ContactsCubit extends Cubit<ContactsState> {
       String id, String newFirstName, String newLastName) async {
     await contactsRepository.updateUserData(id, newFirstName, newLastName);
     final dbContacts = await contactsRepository.getContactsFromDB();
-    print("emiting after update");
     emit(ContactsLoaded(loadedContacts: dbContacts));
   }
 }

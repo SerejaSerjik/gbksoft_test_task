@@ -73,11 +73,12 @@ class _ContactsPageState extends State<ContactsPage> {
                 itemBuilder: (context, index) {
                   return Dismissible(
                     background: Container(color: Colors.red),
-                    key: Key(index.toString()),
+                    key: Key(state.loadedContacts[index].id),
                     onDismissed: (direction) {
                       context
                           .bloc<ContactsCubit>()
                           .deleteContactFromDB(state.loadedContacts[index]);
+                      state.loadedContacts.removeAt(index);
                       Scaffold.of(context)
                           .showSnackBar(SnackBar(content: Text("Deleted!")));
                     },
