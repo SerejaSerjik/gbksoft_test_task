@@ -79,6 +79,7 @@ class _ContactsPageState extends State<ContactsPage> {
                           .bloc<ContactsCubit>()
                           .deleteContactFromDB(state.loadedContacts[index]);
                       state.loadedContacts.removeAt(index);
+                      Scaffold.of(context).hideCurrentSnackBar();
                       Scaffold.of(context)
                           .showSnackBar(SnackBar(content: Text("Deleted!")));
                     },
